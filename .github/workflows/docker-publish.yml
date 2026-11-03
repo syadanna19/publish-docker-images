@@ -21,3 +21,4 @@ jobs:
         run: |
           docker build . --tag ghcr.io/<GITHUB_USERNAME>/publish-docker-images/stackoverflown:main
           docker push ghcr.io/<GITHUB_USERNAME>/publish-docker-images/stackoverflown:main
+          
