@@ -23,11 +23,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Build and push Docker image
-        env:
-          IMAGE_NAME: ghcr.io/${{ github.repository }}/stackoverflown:main
-        run: |
-          IMAGE_NAME=$(printf '%s' "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
-          docker build . --tag "$IMAGE_NAME"
-          docker push "$IMAGE_NAME"
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/${{ github.repository }}/stackoverflown:main
+            ghcr.io/${{ github.repository }}/stackoverflown:${{ github.sha }}
           
