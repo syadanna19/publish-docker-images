@@ -30,3 +30,4 @@ jobs:
           IMAGE_NAME=$(printf '%s' "$IMAGE_NAME" | tr '[:upper:]' '[:lower:]')
           docker build . --tag "$IMAGE_NAME"
           docker push "$IMAGE_NAME"
+          
